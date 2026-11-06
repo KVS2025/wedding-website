@@ -278,3 +278,117 @@ html.has-gsap .scratch-reveal { transition: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+.language-switcher, .footer-language { display: inline-flex; align-items: center; justify-content: center; gap: .25rem; border: 1px solid rgba(232,203,145,.76); border-radius: 999px; background: rgba(4,16,31,.94); color: var(--ivory); }
+.language-switcher { position: fixed; top: max(12px, env(safe-area-inset-top)); left: 50%; z-index: 18; min-height: 54px; padding: 3px; transform: translateX(-50%); box-shadow: 0 6px 22px rgba(4,16,31,.25); }
+.language-option { min-width: 88px; min-height: 46px; padding: .5rem .7rem; border: 0; border-radius: 999px; background: transparent; color: var(--ivory); font: 600 .72rem var(--body-font); letter-spacing: .035em; cursor: pointer; transition: background .2s ease, color .2s ease; touch-action: manipulation; }
+.language-option[data-language="gu"] { font-family: "Noto Sans Gujarati", var(--body-font); font-size: .88rem; }
+.language-option.is-active { background: var(--gold-primary); color: var(--navy-deep); }
+.language-divider { color: var(--gold-light); opacity: .8; }
+.footer-language { position: relative; margin-top: 1.5rem; padding: 3px; }
+.footer-language .language-option { min-height: 48px; }
+.intro-copy h1 span, .intro-copy h1 em { display: block; }
+.couple-section { display: grid; width: min(100%, 790px); grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: clamp(1.1rem, 3.5vw, 3rem); margin: clamp(1.8rem, 4vw, 2.8rem) auto; }
+.couple-person { min-width: 0; text-align: center; }
+.couple-person--left { text-align: center; }
+.couple-name { margin: 0 0 .65rem; font-size: clamp(2.8rem, 5.3vw, 5rem); line-height: 1.05; letter-spacing: -.025em; overflow-wrap: anywhere; }
+.parent-relation { margin: .25rem 0 .35rem; color: var(--gold-light); font: italic 1.2rem/1.5 var(--display-font); }
+.parent-name { max-width: 100%; margin: 0 auto; color: var(--text-primary); font-size: 1rem; line-height: 1.7; overflow-wrap: anywhere; }
+.couple-divider { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .35rem; color: var(--gold-light); }
+.divider-flourish { color: var(--gold-antique); font-size: .72rem; }
+.divider-ampersand { color: var(--gold-primary); font: italic 400 2.8rem/.9 var(--display-font); }
+.couple-divider .weds { color: var(--gold-light); font: 500 .62rem "Cinzel", serif; letter-spacing: .16em; }
+.hero-welcome { margin-bottom: .2rem; }
+
+html[lang="gu"] body { font-family: "Noto Sans Gujarati", sans-serif; font-size: 17px; font-weight: 400; line-height: 1.85; }
+html[lang="gu"] .section-title,
+html[lang="gu"] .intro-copy h1,
+html[lang="gu"] .couple-name,
+html[lang="gu"] .event-copy h3,
+html[lang="gu"] .footer h2,
+html[lang="gu"] .venue-name { font-family: "Noto Sans Gujarati", sans-serif; font-weight: 600; line-height: 1.55; letter-spacing: 0; }
+html[lang="gu"] .prayer,
+html[lang="gu"] .eyebrow,
+html[lang="gu"] .intro-kicker,
+html[lang="gu"] .weds,
+html[lang="gu"] .couple-divider .weds,
+html[lang="gu"] .scratch-day,
+html[lang="gu"] .scratch-prompt-copy { font-family: "Noto Sans Gujarati", sans-serif; letter-spacing: 0; text-transform: none; }
+html[lang="gu"] .prayer { font-size: clamp(1rem, 3vw, 1.25rem); }
+html[lang="gu"] .eyebrow,
+html[lang="gu"] .intro-kicker { font-size: 1rem; line-height: 1.7; }
+html[lang="gu"] .intro-copy h1 { font-size: clamp(1.65rem, 5.3vw, 2.8rem); line-height: 1.7; }
+html[lang="gu"] .intro-copy h1 em { font-style: normal; }
+html[lang="gu"] .intro-date,
+html[lang="gu"] .open-invitation,
+html[lang="gu"] .text-link,
+html[lang="gu"] .family-message,
+html[lang="gu"] .invitation-message,
+html[lang="gu"] .section-subtitle,
+html[lang="gu"] .event-copy p,
+html[lang="gu"] .venue-address,
+html[lang="gu"] .footer-closing { font-size: 1rem; line-height: 1.9; letter-spacing: 0; }
+html[lang="gu"] .couple-name { font-size: clamp(2.45rem, 6vw, 4.1rem); line-height: 1.45; }
+html[lang="gu"] .parent-relation,
+html[lang="gu"] .parent-name { font-family: "Noto Sans Gujarati", sans-serif; font-size: 1rem; font-style: normal; line-height: 1.8; }
+html[lang="gu"] .couple-person--left .parent-name { order: 1; }
+html[lang="gu"] .couple-person--left .parent-relation { order: 2; }
+html[lang="gu"] .couple-person--right .parent-name { order: 1; }
+html[lang="gu"] .couple-person--right .parent-relation { order: 2; }
+html[lang="gu"] .couple-person { display: flex; flex-direction: column; }
+html[lang="gu"] .divider-ampersand { font-family: "Noto Sans Gujarati", sans-serif; font-size: 1.7rem; }
+html[lang="gu"] .couple-divider .weds { font-size: 1rem; }
+html[lang="gu"] .section-title { font-size: clamp(2rem, 5.5vw, 3.25rem); }
+html[lang="gu"] .time-number { font-family: "Noto Sans Gujarati", sans-serif; font-size: clamp(2rem, 6vw, 3.6rem); font-weight: 600; line-height: 1.35; }
+html[lang="gu"] .time-label { font-family: "Noto Sans Gujarati", sans-serif; color: var(--text-dark); font-size: .95rem; letter-spacing: 0; }
+html[lang="gu"] .scratch-date { font-family: "Noto Sans Gujarati", sans-serif; font-size: clamp(1.45rem, 4vw, 2.1rem); line-height: 1.7; }
+html[lang="gu"] .scratch-day,
+html[lang="gu"] .scratch-prompt-copy { font-size: .9rem; line-height: 1.75; }
+html[lang="gu"] .scratch-message { font-family: "Noto Sans Gujarati", sans-serif; font-size: 1rem; font-style: normal; line-height: 1.8; }
+html[lang="gu"] .scratch-prompt-title { font-family: "Noto Sans Gujarati", sans-serif; font-size: clamp(1.1rem, 4vw, 1.45rem); line-height: 1.7; }
+html[lang="gu"] .scratch-button,
+html[lang="gu"] .directions-button,
+html[lang="gu"] .language-option { font-family: "Noto Sans Gujarati", sans-serif; font-size: .95rem; letter-spacing: 0; }
+html[lang="gu"] .event-time { font-family: "Noto Sans Gujarati", sans-serif; font-size: 1rem; line-height: 1.75; white-space: normal; overflow-wrap: anywhere; }
+html[lang="gu"] .event-copy h3 { font-size: 1.4rem; }
+html[lang="gu"] .venue-name,
+html[lang="gu"] .family-name,
+html[lang="gu"] .footer-family { font-family: "Noto Sans Gujarati", sans-serif; font-size: 1.2rem; line-height: 1.8; }
+html[lang="gu"] .family-message { color: #e4e9ef; }
+html[lang="gu"] .footer-date { font-family: "Noto Sans Gujarati", sans-serif; font-size: .95rem; letter-spacing: 0; }
+
+@media (max-width: 700px) {
+  .couple-section { width: min(100%, 440px); grid-template-columns: minmax(0, 1fr); gap: 1.15rem; margin-block: 1.6rem; }
+  .couple-name { margin-bottom: .25rem; font-size: clamp(2.7rem, 12vw, 3.8rem); }
+  .parent-relation { margin: .1rem 0; font-size: 1.08rem; }
+  .parent-name { max-width: 330px; font-size: 1rem; }
+  .couple-divider { flex-direction: row; gap: .7rem; }
+  .divider-flourish { font-size: .62rem; }
+  .divider-ampersand { font-size: 2rem; }
+  .couple-divider .weds { font-size: .7rem; }
+  html[lang="gu"] .couple-section { gap: .9rem; }
+  html[lang="gu"] .couple-name { font-size: clamp(2.35rem, 11vw, 3.5rem); line-height: 1.55; }
+  html[lang="gu"] .parent-name,
+  html[lang="gu"] .parent-relation { font-size: 1rem; }
+  html[lang="gu"] .couple-person { display: flex; flex-direction: column; }
+  html[lang="gu"] .couple-person .parent-name { order: 1; }
+  html[lang="gu"] .couple-person .parent-relation { order: 2; }
+  html[lang="gu"] .event { grid-template-columns: minmax(92px, .7fr) minmax(0, 1.7fr); column-gap: 28px; }
+  html[lang="gu"] .timeline::before { left: 103px; }
+  html[lang="gu"] .event-marker { left: 95px; }
+  html[lang="gu"] .event-time { font-size: .9rem; }
+  html[lang="gu"] .event-copy p { font-size: 1rem; }
+}
+
+@media (max-width: 390px) {
+  .language-switcher { top: max(8px, env(safe-area-inset-top)); min-height: 56px; }
+  .language-option { min-width: 78px; min-height: 48px; padding-inline: .55rem; font-size: .67rem; }
+  .language-option[data-language="gu"] { font-size: .82rem; }
+  .couple-section { gap: .95rem; }
+  html[lang="gu"] .intro-copy h1 { font-size: 1.55rem; }
+  html[lang="gu"] .couple-name { font-size: 2.35rem; }
+}
+.scratch-button { min-height: 48px; }
+.directions-button { min-height: 52px; }
+html.preserving-language-scroll { scroll-behavior: auto !important; }
+html.preserving-language-scroll body { overflow-anchor: none; }

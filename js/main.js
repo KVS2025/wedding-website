@@ -1,10 +1,89 @@
 (() => {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const translations = window.WeddingTranslations;
+  const languageStorageKey = "abhishek-triya-language";
+  const numberFormatters = {
+    en: new Intl.NumberFormat("en-IN", { useGrouping: false }),
+    gu: new Intl.NumberFormat("gu-IN", { numberingSystem: "gujr", useGrouping: false })
+  };
+  let currentLanguage = "en";
+  let scratchDateRevealed = false;
+
+  function getTranslation(key, language = currentLanguage) {
+    return translations[language][key] ?? translations.en[key] ?? key;
+  }
+
+  function applyLanguage(language, preserveScroll = true) {
+    if (!translations[language]) return;
+    const scrollPosition = window.scrollY;
+    currentLanguage = language;
+    document.documentElement.lang = language;
+    document.title = getTranslation("meta.pageTitle");
+
+    document.querySelectorAll("[data-i18n]").forEach((element) => {
+      element.textContent = getTranslation(element.dataset.i18n);
+    });
+    document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
+      element.setAttribute("aria-label", getTranslation(element.dataset.i18nAriaLabel));
+    });
+    document.querySelectorAll("[data-i18n-title]").forEach((element) => {
+      element.setAttribute("title", getTranslation(element.dataset.i18nTitle));
+    });
+    document.querySelectorAll("[data-i18n-content]").forEach((element) => {
+      element.setAttribute("content", getTranslation(element.dataset.i18nContent));
+    });
+    document.querySelectorAll("[data-language]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.language === language));
+      button.classList.toggle("is-active", button.dataset.language === language);
+    });
+
+    const accessibleDate = document.querySelector("#scratch-accessible-date");
+    if (accessibleDate) {
+      accessibleDate.textContent = getTranslation(
+        scratchDateRevealed ? "scratch.accessibleRevealed" : "scratch.accessible"
+      );
+    }
+
+    if (preserveScroll) {
+      document.documentElement.classList.add("preserving-language-scroll");
+      if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+      window.scrollTo(0, scrollPosition);
+      window.requestAnimationFrame(() => {
+        window.scrollTo(0, scrollPosition);
+        document.documentElement.classList.remove("preserving-language-scroll");
+      });
+    }
+  }
+
+  try {
+    const savedLanguage = window.localStorage.getItem(languageStorageKey);
+    if (savedLanguage && translations[savedLanguage]) currentLanguage = savedLanguage;
+  } catch (error) {
+    console.warn("The saved language preference could not be restored.", error);
+  }
+  applyLanguage(currentLanguage, false);
+
+  document.querySelectorAll("[data-language]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const { language } = button.dataset;
+      if (language === currentLanguage) return;
+      applyLanguage(language);
+      updateCountdown(true);
+      try {
+        window.localStorage.setItem(languageStorageKey, language);
+      } catch (error) {
+        console.warn("The language preference could not be saved.", error);
+      }
+    });
+  });
+
   const intro = document.querySelector("#curtain-intro");
   const openButton = document.querySelector("#open-invitation");
   const curtainPanels = intro.querySelectorAll(".curtain");
   const curtainHighlight = intro.querySelector(".curtain-highlight");
   let opened = false;
+  let openingFinished = false;
+  let openingFallbackTimer;
 
   function playWelcomeChime() {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -33,6 +112,9 @@
   }
 
   function finishOpening() {
+    if (openingFinished) return;
+    openingFinished = true;
+    window.clearTimeout(openingFallbackTimer);
     document.body.classList.remove("intro-active");
     document.querySelector("#invitation").removeAttribute("inert");
     intro.classList.add("is-gone");
@@ -40,6 +122,24 @@
     intro.removeAttribute("role");
     intro.removeAttribute("aria-modal");
     document.querySelector("#couple-names").setAttribute("tabindex", "-1");
+    if (window.gsap && !reducedMotion) {
+      const coupleTimeline = window.gsap.timeline();
+      coupleTimeline.fromTo(".couple-person--left .couple-name", { autoAlpha: 0, y: 16 }, {
+        autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out"
+      })
+        .fromTo(".couple-divider", { autoAlpha: 0, scale: 0.94 }, {
+          autoAlpha: 1, scale: 1, duration: 0.3, ease: "power2.out"
+        }, "-=0.1")
+        .fromTo(".couple-person--right .couple-name", { autoAlpha: 0, y: 16 }, {
+          autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out"
+        }, "-=0.08")
+        .fromTo(".parent-relation, .parent-name", { autoAlpha: 0, y: 10 }, {
+          autoAlpha: 1, y: 0, duration: 0.35, stagger: 0.07, ease: "power1.out"
+        }, "-=0.12")
+        .fromTo(".invitation-message, .hero-support, .text-link", { autoAlpha: 0, y: 8 }, {
+          autoAlpha: 1, y: 0, duration: 0.35, stagger: 0.08, ease: "power1.out"
+        }, "-=0.05");
+    }
     document.querySelector("#couple-names").focus({ preventScroll: true });
     window.setTimeout(() => intro.remove(), 500);
   }
@@ -87,6 +187,7 @@
           duration: 1.82, ease: "power3.inOut"
         }, 0.2)
         .to(intro, { autoAlpha: 0, duration: 0.38, ease: "power1.out" }, 1.76);
+      openingFallbackTimer = window.setTimeout(finishOpening, 2700);
     } else {
       window.setTimeout(finishOpening, 1900);
     }
@@ -107,7 +208,7 @@
   let previousValues = {};
   let countdownTimer;
 
-  function updateCountdown() {
+  function updateCountdown(force = false) {
     const remaining = weddingInstant - Date.now();
     if (remaining <= 0) {
       countdown.hidden = true;
@@ -123,8 +224,8 @@
     };
     for (const [unit, value] of Object.entries(values)) {
       const node = numberNodes[unit];
-      if (previousValues[unit] !== value) {
-        node.textContent = String(value).padStart(2, "0");
+      if (force || previousValues[unit] !== value) {
+        node.textContent = numberFormatters[currentLanguage].format(value).padStart(2, currentLanguage === "gu" ? "૦" : "0");
         node.classList.add("is-changing");
         window.setTimeout(() => node.classList.remove("is-changing"), 180);
       }
@@ -242,6 +343,7 @@
     function revealDate() {
       if (revealed) return;
       revealed = true;
+      scratchDateRevealed = true;
       pointerDown = false;
       activePointerId = null;
       const moveFocus = document.activeElement === button;
@@ -249,7 +351,7 @@
       card.classList.add("is-revealed");
       reveal.setAttribute("aria-hidden", "false");
       reveal.setAttribute("tabindex", "-1");
-      accessibleDate.textContent = "The wedding date is Sunday, 13 December 2026. The date has been revealed.";
+      accessibleDate.textContent = getTranslation("scratch.accessibleRevealed");
       button.disabled = true;
       button.setAttribute("aria-hidden", "true");
       if (moveFocus) reveal.focus({ preventScroll: true });
