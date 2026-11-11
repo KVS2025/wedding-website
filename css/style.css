@@ -105,13 +105,31 @@ a { color: inherit; }
 .section-title { margin: 0; color: var(--maroon); font: 400 clamp(2rem, 5vw, 3.5rem)/1.15 var(--title-font); }
 .date-line { margin: 1.2rem 0 2.3rem; color: var(--burgundy); font: 1.35rem/1.35 var(--display-font); }
 .date-line span { color: #966c34; font-size: 1rem; font-style: italic; }
-.countdown { display: flex; max-width: 610px; align-items: center; justify-content: space-between; gap: .45rem; margin: 0 auto; }
+.countdown-shell { position: relative; }
+.countdown-reveal {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transform: translateY(18px);
+  transition: opacity .8s ease, transform .8s ease, visibility 0s linear .8s, max-height .8s ease;
+}
+.countdown-shell.is-unlocked .countdown-reveal {
+  opacity: 1;
+  max-height: 360px;
+  visibility: visible;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+.countdown { display: flex; max-width: 610px; align-items: center; justify-content: space-between; gap: .45rem; margin: 0 auto; opacity: 0; transform: translateY(14px); transition: opacity .5s ease .2s, transform .5s ease .2s; }
+.countdown-shell.is-unlocked .countdown { opacity: 1; transform: translateY(0); }
 .time-unit { display: grid; min-width: 58px; gap: .45rem; }
 .time-number { color: var(--maroon); font: 500 clamp(2.2rem, 8vw, 4.3rem)/1 var(--display-font); font-variant-numeric: tabular-nums; transition: opacity .2s ease; }
 .time-number.is-changing { opacity: .55; }
 .time-label { color: #795b47; font-size: .56rem; letter-spacing: .17em; text-transform: uppercase; }
 .countdown-separator { color: var(--gold); font-size: .7rem; }
-.countdown-complete { margin: 2rem 0 0; color: var(--burgundy); font: italic 1.5rem var(--display-font); }
+.countdown-complete { margin: 2rem 0 0; color: var(--burgundy); font: italic 1.5rem var(--display-font); opacity: 0; transform: translateY(14px); transition: opacity .45s ease .5s, transform .45s ease .5s; }
+.countdown-shell.is-unlocked .countdown-complete { opacity: 1; transform: translateY(0); }
 .section-flourish { display: block; margin-top: 2.4rem; color: var(--gold); letter-spacing: .45em; }
 
 .celebrations { position: relative; padding: 6rem 0 5.5rem; overflow: hidden; }

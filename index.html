@@ -72,7 +72,6 @@
             </div>
             <div class="couple-divider" data-i18n-aria-label="couple.weds" aria-label="WEDS">
               <span class="divider-flourish" aria-hidden="true">✦</span>
-              <span class="divider-ampersand" aria-hidden="true">&amp;</span>
               <span class="weds" data-i18n="couple.weds">WEDS</span>
               <span class="divider-flourish" aria-hidden="true">✦</span>
             </div>
@@ -91,8 +90,6 @@
 
       <section class="countdown-section section-ivory" aria-labelledby="countdown-heading">
         <div class="section-shell countdown-shell reveal">
-          <p class="eyebrow" data-i18n="countdown.eyebrow">A day to remember</p>
-          <h2 class="section-title" id="countdown-heading" data-i18n="countdown.heading">Counting Down to Forever</h2>
           <div class="scratch-card" id="scratch-card">
             <div class="scratch-reveal" id="scratch-reveal" aria-hidden="true">
               <span class="scratch-date" data-i18n="scratch.date">13 DECEMBER 2026</span>
@@ -102,22 +99,26 @@
             <canvas class="scratch-canvas" id="scratch-canvas" aria-hidden="true"></canvas>
             <div class="scratch-prompt" aria-hidden="true">
               <span class="scratch-prompt-title" data-i18n="scratch.prompt">Something Beautiful Awaits...</span>
-              <span class="scratch-prompt-copy" data-i18n="scratch.instruction">Scratch to Reveal the Wedding Date</span>
+              <span class="scratch-prompt-copy" data-i18n="scratch.instruction">Scratch or Tap to Reveal</span>
               <span class="scratch-mark">✧</span>
             </div>
             <button class="scratch-button" id="scratch-button" type="button" aria-label="Tap to reveal the wedding date" data-i18n="scratch.tap" data-i18n-aria-label="scratch.tapA11y">Tap to reveal</button>
             <p class="sr-only" id="scratch-accessible-date" aria-live="polite" data-i18n="scratch.accessible">The wedding date is Sunday, 13 December 2026. Scratch the card or activate the reveal button to display it.</p>
           </div>
-          <div class="countdown" id="countdown" role="timer" aria-label="Time remaining until the wedding" data-i18n-aria-label="countdown.timer">
-            <div class="time-unit"><span class="time-number" data-unit="days">—</span><span class="time-label" data-i18n="countdown.days">Days</span></div>
-            <span class="countdown-separator" aria-hidden="true">✦</span>
-            <div class="time-unit"><span class="time-number" data-unit="hours">—</span><span class="time-label" data-i18n="countdown.hours">Hours</span></div>
-            <span class="countdown-separator" aria-hidden="true">✦</span>
-            <div class="time-unit"><span class="time-number" data-unit="minutes">—</span><span class="time-label" data-i18n="countdown.minutes">Minutes</span></div>
-            <span class="countdown-separator" aria-hidden="true">✦</span>
-            <div class="time-unit"><span class="time-number" data-unit="seconds">—</span><span class="time-label" data-i18n="countdown.seconds">Seconds</span></div>
+          <div class="countdown-reveal">
+            <p class="eyebrow" data-i18n="countdown.eyebrow">A day to remember</p>
+            <h2 class="section-title" id="countdown-heading" data-i18n="countdown.heading">Counting Down to Forever</h2>
+            <div class="countdown" id="countdown" role="timer" aria-label="Time remaining until the wedding" data-i18n-aria-label="countdown.timer">
+              <div class="time-unit"><span class="time-number" data-unit="days">—</span><span class="time-label" data-i18n="countdown.days">Days</span></div>
+              <span class="countdown-separator" aria-hidden="true">✦</span>
+              <div class="time-unit"><span class="time-number" data-unit="hours">—</span><span class="time-label" data-i18n="countdown.hours">Hours</span></div>
+              <span class="countdown-separator" aria-hidden="true">✦</span>
+              <div class="time-unit"><span class="time-number" data-unit="minutes">—</span><span class="time-label" data-i18n="countdown.minutes">Minutes</span></div>
+              <span class="countdown-separator" aria-hidden="true">✦</span>
+              <div class="time-unit"><span class="time-number" data-unit="seconds">—</span><span class="time-label" data-i18n="countdown.seconds">Seconds</span></div>
+            </div>
+            <p class="countdown-complete" id="countdown-complete" hidden data-i18n="countdown.complete">Today is the day! Let the celebrations begin.</p>
           </div>
-          <p class="countdown-complete" id="countdown-complete" hidden data-i18n="countdown.complete">Today is the day! Let the celebrations begin.</p>
           <span class="section-flourish" aria-hidden="true">❧ ✦ ❧</span>
         </div>
       </section>

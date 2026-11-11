@@ -201,6 +201,8 @@
 
   const weddingInstant = Date.parse("2026-12-13T00:00:00+05:30");
   const countdown = document.querySelector("#countdown");
+  const countdownShell = document.querySelector(".countdown-shell");
+  const countdownHeading = document.querySelector("#countdown-heading");
   const completeMessage = document.querySelector("#countdown-complete");
   const numberNodes = Object.fromEntries(
     [...countdown.querySelectorAll("[data-unit]")].map((node) => [node.dataset.unit, node])
@@ -347,6 +349,15 @@
       pointerDown = false;
       activePointerId = null;
       const moveFocus = document.activeElement === button;
+      const revealNodes = [
+        reveal.querySelector(".scratch-date"),
+        reveal.querySelector(".scratch-day"),
+        reveal.querySelector(".scratch-message")
+      ];
+      const countdownUnits = [...countdown.querySelectorAll(".time-number")];
+      const countdownSeparators = [...document.querySelectorAll(".countdown-separator")];
+      countdown.hidden = false;
+      if (countdownShell) countdownShell.classList.add("is-unlocked");
       canvas.classList.add("is-fading");
       card.classList.add("is-revealed");
       reveal.setAttribute("aria-hidden", "false");
@@ -362,11 +373,25 @@
         console.warn("The wedding date could not be saved for this session.", error);
       }
       if (window.gsap && !reducedMotion) {
-        window.gsap.fromTo(reveal, { autoAlpha: 0, scale: 0.96 }, {
-          autoAlpha: 1, scale: 1, duration: 0.8, ease: "power2.out"
-        });
+        const revealTimeline = window.gsap.timeline({ defaults: { ease: "power2.out" } });
+        revealTimeline
+          .to(card.querySelector(".scratch-prompt"), { autoAlpha: 0, duration: 0.2 }, 0)
+          .to(canvas, { autoAlpha: 0, duration: 0.3 }, 0)
+          .to(reveal, { autoAlpha: 1, scale: 1, duration: 0.7 }, 0.08)
+          .fromTo(revealNodes[0], { autoAlpha: 0, y: 18, filter: "blur(8px)" }, { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.7 }, 0.18)
+          .fromTo(revealNodes[1], { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.42 }, 0.28)
+          .fromTo(revealNodes[2], { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.42 }, 0.38)
+          .fromTo(countdownHeading, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.55 }, 0.65)
+          .fromTo(countdownUnits, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.45, stagger: 0.12 }, 0.82)
+          .fromTo(countdownSeparators, { autoAlpha: 0, scale: 0.7 }, { autoAlpha: 1, scale: 1, duration: 0.35, stagger: 0.12 }, 0.9);
+      } else {
+        reveal.style.opacity = "1";
+        reveal.style.visibility = "visible";
+        reveal.style.transform = "scale(1)";
+        if (countdownHeading) countdownHeading.style.opacity = "1";
+        countdownUnits.forEach((unit) => { unit.style.opacity = "1"; });
       }
-      for (let index = 0; index < 7; index += 1) {
+      for (let index = 0; index < 12; index += 1) {
         const sparkle = document.createElement("span");
         sparkle.className = "scratch-sparkle";
         sparkle.setAttribute("aria-hidden", "true");
@@ -376,6 +401,7 @@
         card.append(sparkle);
         window.setTimeout(() => sparkle.remove(), reducedMotion ? 50 : 1100);
       }
+      window.dispatchEvent(new CustomEvent("wedding:unlock"));
     }
 
     function getScratchCoverage() {
@@ -517,8 +543,18 @@
     let height = 0;
     let frame = 0;
     let lastTime = 0;
+    let petalBoost = 0;
+    let petalBoostTimer;
     let petals = [];
     const colors = ["#b99555", "#e8cb91", "#d8bd8c", "#c5a58d"];
+
+    function triggerPetalBoost() {
+      petalBoost = 1;
+      window.clearTimeout(petalBoostTimer);
+      petalBoostTimer = window.setTimeout(() => { petalBoost = 0; }, 1600);
+    }
+
+    window.addEventListener("wedding:unlock", triggerPetalBoost, { passive: true });
 
     function resize() {
       const ratio = Math.min(window.devicePixelRatio || 1, 2);
@@ -548,16 +584,17 @@
       lastTime = time;
       context.clearRect(0, 0, width, height);
       for (const petal of petals) {
-        petal.y += petal.speed * delta;
-        petal.x += (petal.drift + Math.sin(time * 0.0007 + petal.phase) * 0.22) * delta;
-        petal.rotation += petal.spin * delta;
+        const boostFactor = petalBoost > 0 ? 2.2 : 1;
+        petal.y += petal.speed * delta * boostFactor;
+        petal.x += (petal.drift + Math.sin(time * 0.0007 + petal.phase) * 0.22) * delta * (petalBoost > 0 ? 1.8 : 1);
+        petal.rotation += petal.spin * delta * (petalBoost > 0 ? 1.7 : 1);
         if (petal.y > height + 12) { petal.y = -12; petal.x = Math.random() * width; }
         if (petal.x < -12) petal.x = width + 12;
         if (petal.x > width + 12) petal.x = -12;
         context.save();
         context.translate(petal.x, petal.y);
         context.rotate(petal.rotation);
-        context.globalAlpha = 0.38;
+        context.globalAlpha = petalBoost > 0 ? 0.75 : 0.38;
         context.fillStyle = petal.color;
         context.beginPath();
         context.ellipse(0, 0, petal.size * 0.58, petal.size * 1.15, 0, 0, Math.PI * 2);
