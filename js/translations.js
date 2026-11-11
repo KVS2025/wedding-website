@@ -118,13 +118,13 @@
       "events.eyebrow": "આપ સૌને ભાવભર્યું આમંત્રણ",
       "events.heading": "લગ્ન પ્રસંગના કાર્યક્રમો",
       "events.subtitle": "પરંપરા, આનંદ અને સાથે મળીને ઉજવવાનો એક યાદગાર દિવસ.",
-      "events.mandapTime": "સવારે ૬:૩૦ કલાકે",
+      "events.mandapTime": "સવારે ૬:૩૦",
       "events.mandap": "મંડપ મુહૂર્ત",
       "events.mandapDescription": "મંગલમય વિધિઓ અને ઈશ્વરના આશીર્વાદ સાથે શુભ પ્રસંગની શરૂઆત.",
-      "events.baaratTime": "સવારે ૧૦:૩૦ કલાકે",
+      "events.baaratTime": "સવારે ૧૦:૩૦",
       "events.baarat": "વરઘોડો",
       "events.baaratDescription": "સંગીત, આનંદ અને ઉત્સાહ સાથે લગ્નની ભવ્ય ઉજવણી.",
-      "events.hastamilanTime": "બપોરે ૧૨:૩૯ કલાકે",
+      "events.hastamilanTime": "બપોરે ૧૨:૩૯",
       "events.hastamilan": "હસ્તમેળાપ",
       "events.hastamilanDescription": "બે આત્માઓ અને બે પરિવારોના પવિત્ર મિલનનો શુભ અવસર.",
       "events.lunchTime": "બપોરે ૧૨:૩૦",
@@ -146,7 +146,7 @@
       "footer.heading": "સ્નેહ, આનંદ અને આશીર્વાદ સાથે",
       "footer.family": "આનંદબેન પ્રમોદચંદ્ર શાહ પરિવાર",
       "footer.closing": "આપ સૌની ઉપસ્થિતિની આતુરતાપૂર્વક રાહ જોઈ રહ્યા છીએ.",
-      "footer.mark": "અભિષેક અને ત્રિયા · મુંબઈ"
+      "footer.mark": "અભિષેક અને ટ્રિયા · મુંબઈ"
     }
   };
 
