@@ -99,7 +99,7 @@ a { color: inherit; }
 .hero-bottom-mark { position: absolute; bottom: 2.2rem; color: var(--gold); font-size: .8rem; letter-spacing: .2em; }
 
 .section-shell { width: min(100% - 2.5rem, 1000px); margin-inline: auto; }
-.countdown-section { position: relative; overflow: hidden; padding: 6.5rem 0 6rem; background: radial-gradient(ellipse at 50% 30%, #102b4a 0, var(--navy-primary) 52%, var(--navy-deep) 100%); color: var(--ivory); text-align: center; }
+.countdown-section { position: relative; overflow: hidden; padding: 6.5rem 0 6rem; background: #081B33; color: var(--ivory); text-align: center; }
 .countdown-section::before { position: absolute; inset: 16px 18px; border: 1px solid rgba(212,175,104,.25); content: ""; pointer-events: none; }
 .eyebrow { margin: 0 0 .8rem; color: #966c34; }
 .section-title { margin: 0; color: var(--maroon); font: 400 clamp(2rem, 5vw, 3.5rem)/1.15 var(--title-font); }
@@ -207,30 +207,31 @@ html.has-gsap .scratch-reveal { transition: none; }
 .family-name { color: var(--gold-light); }
 .family-message { color: var(--text-secondary); }
 .family-decoration { color: var(--gold-light); }
-.scratch-card { position: relative; width: min(88vw, 430px); aspect-ratio: 1; margin: .2rem auto 1.1rem; isolation: isolate; filter: drop-shadow(0 22px 32px rgba(0,0,0,.32)); transition: filter .45s ease, transform .45s ease; }
+.scratch-card { --heart-navy: #102442; --heart-gold: #D6AD62; --heart-antique: #956B32; position: relative; width: min(88vw, 430px); aspect-ratio: 1; margin: .2rem auto 1.1rem; isolation: isolate; filter: drop-shadow(0 22px 32px rgba(0,0,0,.32)); transition: filter .45s ease, transform .45s ease; }
 .scratch-card.is-celebrating { filter: drop-shadow(0 0 18px rgba(232,203,145,.46)) drop-shadow(0 22px 32px rgba(0,0,0,.3)); }
+.heart-base { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; }
 .scratch-reveal, .scratch-canvas, .scratch-prompt { clip-path: url("#heart-clip"); }
-.scratch-reveal { position: absolute; inset: 0; z-index: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 2.3rem; color: var(--navy-primary); text-align: center; }
-.scratch-date { color: var(--navy-primary); font: 600 clamp(1.45rem, 5vw, 2.45rem)/1.15 var(--display-font); letter-spacing: .035em; }
-.scratch-day { margin-top: .45rem; color: #806033; font: 500 .68rem "Cinzel", serif; letter-spacing: .3em; }
-.scratch-message { margin-top: .6rem; color: #43536a; font: italic 1.05rem/1.35 var(--display-font); }
-.scratch-canvas { position: absolute; inset: 0; z-index: 1; display: block; width: 100%; height: 100%; cursor: crosshair; touch-action: none; transition: opacity .7s ease; }
+.scratch-reveal { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 2.3rem; color: var(--heart-navy); text-align: center; }
+.scratch-date { color: #102442; font: 700 clamp(1.5rem, 5.8vw, 2.45rem)/1.15 "Cormorant Garamond", Georgia, serif; letter-spacing: .035em; }
+.scratch-day { margin-top: .8rem; color: #8B2945; font: 700 1rem/1.15 "Cormorant Garamond", Georgia, serif; letter-spacing: .28em; }
+.scratch-message { margin-top: .8rem; color: #263B55; font: italic 500 1.12rem/1.4 var(--display-font); }
+.scratch-canvas { position: absolute; inset: 0; z-index: 2; display: block; width: 100%; height: 100%; cursor: crosshair; touch-action: none; transition: opacity .7s ease; }
 .scratch-canvas.is-fading { opacity: 0; pointer-events: none; }
-.scratch-prompt { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 2.4rem 4.7rem; color: var(--navy-primary); pointer-events: none; text-align: center; }
-.scratch-prompt-title { font: italic 500 clamp(1.65rem, 5vw, 2.35rem)/1.15 var(--display-font); }
-.scratch-prompt-copy { max-width: 240px; margin-top: .65rem; color: #806033; font: 500 .63rem/1.5 "Cinzel", serif; letter-spacing: .1em; text-transform: uppercase; }
-.scratch-button { position: absolute; z-index: 4; top: 69%; left: 50%; width: max-content; min-width: 120px; min-height: 44px; padding: .5rem .85rem; transform: translateX(-50%); border: 1px solid rgba(185,149,85,.72); border-radius: 999px; background: rgba(255,248,235,.8); color: var(--navy-primary); font: 500 .61rem "DM Sans", sans-serif; letter-spacing: .04em; cursor: pointer; transition: background .2s ease, color .2s ease, box-shadow .2s ease; touch-action: manipulation; }
+.scratch-prompt { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 2.2rem 4.7rem; color: var(--heart-navy); pointer-events: none; text-align: center; }
+.scratch-prompt-title { color: var(--heart-navy); font: italic 600 clamp(1.7rem, 5.5vw, 2.45rem)/1.15 var(--display-font); }
+.scratch-prompt-copy { max-width: 248px; margin-top: .55rem; color: var(--heart-antique); font: 600 .76rem/1.5 "DM Sans", sans-serif; letter-spacing: .045em; text-transform: none; }
+.scratch-button { position: absolute; z-index: 5; top: 69%; left: 50%; width: max-content; min-width: 120px; min-height: 44px; padding: .5rem .85rem; transform: translateX(-50%); border: 1px solid rgba(214,173,98,.84); border-radius: 999px; background: rgba(255,245,229,.94); color: var(--heart-navy); font: 600 .66rem "DM Sans", sans-serif; letter-spacing: .02em; cursor: pointer; transition: background .2s ease, color .2s ease, box-shadow .2s ease; touch-action: manipulation; }
 .scratch-button:hover, .scratch-button:focus-visible { background: var(--navy-primary); color: var(--gold-light); box-shadow: 0 0 18px rgba(185,149,85,.26); }
 .scratch-button:focus-visible, .open-invitation:focus-visible, a:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 3px; }
-.heart-ornament { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.heart-outline { fill: none; stroke: var(--gold-antique); stroke-width: 4; vector-effect: non-scaling-stroke; }
-.heart-inner-outline { fill: none; stroke: rgba(185,149,85,.42); stroke-width: 2; vector-effect: non-scaling-stroke; }
-.heart-filigree { fill: none; stroke: rgba(185,149,85,.78); stroke-linecap: round; stroke-linejoin: round; stroke-width: 3; vector-effect: non-scaling-stroke; }
-.heart-detail { fill: var(--gold-antique); }
+.heart-ornament { position: absolute; inset: 0; z-index: 4; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.heart-outline { fill: none; stroke: var(--heart-gold); stroke-width: 4; vector-effect: non-scaling-stroke; }
+.heart-inner-outline { fill: none; stroke: rgba(214,173,98,.64); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.heart-filigree { fill: none; stroke: rgba(149,107,50,.76); stroke-linecap: round; stroke-linejoin: round; stroke-width: 3; vector-effect: non-scaling-stroke; }
+.heart-detail { fill: var(--heart-antique); }
 .scratch-card.is-revealed .scratch-reveal { visibility: visible; opacity: 1; }
 .scratch-card.is-revealed .scratch-prompt { opacity: 0; transition: opacity .35s ease; }
 .scratch-card.is-revealed .scratch-canvas { pointer-events: none; }
-.heart-celebration { position: absolute; inset: 0; z-index: 5; overflow: visible; pointer-events: none; }
+.heart-celebration { position: absolute; inset: 0; z-index: 6; overflow: visible; pointer-events: none; }
 .heart-particle { position: absolute; top: 50%; left: 50%; width: 5px; height: 5px; border-radius: 50%; background: var(--particle-color); box-shadow: 0 0 9px rgba(243,221,174,.75); opacity: 0; }
 .heart-particle { animation: heart-burst 1.8s ease-out forwards; }
 .heart-celebration.is-animated .heart-particle { animation: none; }
@@ -387,7 +388,12 @@ html[lang="gu"] .scratch-date { font-family: "Noto Sans Gujarati", sans-serif; f
 html[lang="gu"] .scratch-day,
 html[lang="gu"] .scratch-prompt-copy { font-size: .75rem; line-height: 1.75; }
 html[lang="gu"] .scratch-message { font-family: "Noto Sans Gujarati", sans-serif; font-size: .85rem; font-style: normal; line-height: 1.8; }
-html[lang="gu"] .scratch-prompt-title { font-family: "Noto Sans Gujarati", sans-serif; font-size: clamp(1.05rem, 4.5vw, 1.4rem); line-height: 1.7; }
+html[lang="gu"] .scratch-prompt-title { font-family: "Noto Sans Gujarati", sans-serif; font-size: clamp(1rem, 4.35vw, 1.32rem); line-height: 1.55; }
+html[lang="gu"] .scratch-prompt-copy { max-width: 248px; font-family: "Noto Sans Gujarati", sans-serif; font-size: clamp(.78rem, 3.65vw, .9rem); line-height: 1.65; }
+html[lang="gu"] .scratch-day,
+html[lang="gu"] .scratch-message { font-family: "Noto Sans Gujarati", sans-serif; }
+html[lang="gu"] .scratch-day { font-size: 1rem; font-weight: 700; line-height: 1.5; letter-spacing: 0; }
+html[lang="gu"] .scratch-message { font-size: .88rem; line-height: 1.6; }
 html[lang="gu"] .scratch-button { font-family: "Noto Sans Gujarati", sans-serif; font-size: .72rem; letter-spacing: 0; }
 html[lang="gu"] .scratch-button,
 html[lang="gu"] .directions-button,

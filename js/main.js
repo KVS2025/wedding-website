@@ -302,20 +302,16 @@
       context.beginPath();
       context.clip(heartPath);
       context.globalCompositeOperation = "source-over";
-      const surface = context.createLinearGradient(0, 0, width, height);
-      surface.addColorStop(0, "#fffdf7");
-      surface.addColorStop(0.52, "#fff8eb");
-      surface.addColorStop(1, "#eee1ce");
-      context.fillStyle = surface;
+      context.fillStyle = "#FFF4E3";
       context.fillRect(0, 0, width, height);
 
       const glow = context.createRadialGradient(width * 0.5, height * 0.34, 4, width * 0.5, height * 0.5, width * 0.62);
-      glow.addColorStop(0, "rgba(255,255,255,.55)");
-      glow.addColorStop(1, "rgba(185,149,85,.08)");
+      glow.addColorStop(0, "rgba(255,255,255,.36)");
+      glow.addColorStop(1, "rgba(214,173,98,.1)");
       context.fillStyle = glow;
       context.fillRect(0, 0, width, height);
 
-      context.fillStyle = "rgba(102,77,43,.07)";
+      context.fillStyle = "rgba(102,77,43,.065)";
       for (let index = 0; index < 850; index += 1) {
         const x = ((index * 73) % 997) / 997 * width;
         const y = ((index * 193) % 991) / 991 * height;
