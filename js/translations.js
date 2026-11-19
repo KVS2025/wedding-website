@@ -46,7 +46,7 @@
       "scratch.day": "SUNDAY",
       "scratch.message": "The day two hearts become one.",
       "scratch.prompt": "You're Invited!",
-      "scratch.instruction": "Scratch or tap to reveal our special day",
+      "scratch.instruction": "Tap to reveal our special day",
       "scratch.tap": "Tap to reveal",
       "scratch.tapA11y": "Tap to reveal the wedding date",
       "scratch.accessible": "The wedding date is Sunday, 13 December 2026. Scratch the card or activate the reveal button to display it.",
