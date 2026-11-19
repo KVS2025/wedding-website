@@ -2,10 +2,6 @@
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const translations = window.WeddingTranslations;
   const languageStorageKey = "abhishek-triya-language";
-  const musicStorageKey = "abhishek-triya-music-muted";
-  const musicButton = document.querySelector("#music-control");
-  const backgroundMusic = document.querySelector("#background-music");
-  const musicStatus = document.querySelector("#music-status");
   const galleryImage = document.querySelector("#gallery-image");
   const galleryStage = document.querySelector("#gallery-stage");
   const galleryPrevious = document.querySelector("#gallery-previous");
@@ -24,7 +20,6 @@
   let currentLanguage = "en";
   let currentGallerySlide = 0;
   let scratchDateRevealed = false;
-  let musicMuted = true;
 
   function getTranslation(key, language = currentLanguage) {
     return translations[language][key] ?? translations.en[key] ?? key;
@@ -43,60 +38,6 @@
       );
     });
   }
-
-  try {
-    const savedMusicPreference = window.sessionStorage.getItem(musicStorageKey);
-    if (savedMusicPreference !== null) musicMuted = savedMusicPreference !== "false";
-  } catch (error) {
-    console.warn("The music preference could not be restored.", error);
-  }
-
-  function updateMusicControl() {
-    musicButton.classList.toggle("is-muted", musicMuted);
-    musicButton.classList.toggle("is-playing", !backgroundMusic.paused && !backgroundMusic.muted);
-    musicButton.setAttribute("aria-pressed", String(!musicMuted));
-    musicButton.setAttribute("aria-label", getTranslation(musicMuted ? "music.unmute" : "music.mute"));
-  }
-
-  function playBackgroundMusic() {
-    if (musicMuted) return;
-    const source = backgroundMusic.dataset.audioSource.trim();
-    if (!source) {
-      musicStatus.textContent = getTranslation("music.unavailable");
-      return;
-    }
-    if (!backgroundMusic.src) backgroundMusic.src = source;
-    const playback = backgroundMusic.play();
-    if (playback && typeof playback.catch === "function") {
-      playback.catch((error) => {
-        musicStatus.textContent = getTranslation("music.failed");
-        console.warn("Background music playback was blocked or failed.", error);
-        updateMusicControl();
-      });
-    }
-  }
-
-  function setMusicMuted(muted) {
-    musicMuted = muted;
-    updateMusicControl();
-    musicStatus.textContent = "";
-    try {
-      window.sessionStorage.setItem(musicStorageKey, String(muted));
-    } catch (error) {
-      console.warn("The music preference could not be saved for this visit.", error);
-    }
-    if (muted) backgroundMusic.pause();
-    else playBackgroundMusic();
-  }
-
-  backgroundMusic.addEventListener("play", updateMusicControl);
-  backgroundMusic.addEventListener("pause", updateMusicControl);
-  backgroundMusic.addEventListener("error", () => {
-    if (!musicMuted) musicStatus.textContent = getTranslation("music.failed");
-    updateMusicControl();
-  });
-  musicButton.addEventListener("click", () => setMusicMuted(!musicMuted));
-  updateMusicControl();
 
   function applyLanguage(language, preserveScroll = true) {
     if (!translations[language]) return;
@@ -147,7 +88,6 @@
     console.warn("The saved language preference could not be restored.", error);
   }
   applyLanguage(currentLanguage, false);
-  updateMusicControl();
   updateGalleryLanguage();
 
   document.querySelectorAll("[data-language]").forEach((button) => {
@@ -155,7 +95,6 @@
       const { language } = button.dataset;
       if (language === currentLanguage) return;
       applyLanguage(language);
-      updateMusicControl();
       updateGalleryLanguage();
       updateCountdown(true);
       try {
@@ -258,7 +197,6 @@
     openButton.disabled = true;
     openButton.setAttribute("aria-busy", "true");
     playWelcomeChime();
-    playBackgroundMusic();
     if (!window.gsap && !reducedMotion) intro.classList.add("css-opening");
     intro.classList.add("is-opening");
 
@@ -664,7 +602,7 @@
       preloadSlide((currentGallerySlide + 1) % galleryPhotos.length);
       galleryTimer = window.setInterval(() => {
         showSlide((currentGallerySlide + 1) % galleryPhotos.length);
-      }, 4500);
+      }, 3000);
     }
 
     function showSlide(index) {

@@ -21,6 +21,6 @@ Then open `http://localhost:8000`.
 
 The countdown targets midnight at UTC+05:30 on 13 December 2026 and stays visible below the heart-shaped scratch-to-reveal invitation. The date can be revealed with pointer scratching or the accessible tap button; the revealed state lasts for the current browser session.
 
-No background music file is included. To enable the music control, add a licensed local audio file and set the `data-audio-source` value on `#background-music` in `index.html` (for example, `assets/wedding-instrumental.mp3`). Playback starts only after a visitor interaction, and the mute preference lasts for the current browser tab. The opening chime is generated only after the visitor taps the invitation button.
+The opening chime is generated only after the visitor taps the invitation button. No background music is included.
 
 The map uses a public Google Maps embed and the supplied directions link.

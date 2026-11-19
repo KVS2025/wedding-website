@@ -323,15 +323,6 @@ html.has-gsap .scratch-reveal { transition: none; }
 
 .language-switcher, .footer-language { display: inline-flex; align-items: center; justify-content: center; gap: .25rem; border: 1px solid rgba(232,203,145,.76); border-radius: 999px; background: rgba(4,16,31,.94); color: var(--ivory); }
 .language-switcher { position: fixed; top: max(24px, env(safe-area-inset-top)); left: 50%; z-index: 18; min-height: 54px; padding: 3px; transform: translateX(-50%); box-shadow: 0 6px 22px rgba(4,16,31,.25); }
-.music-control { position: fixed; top: max(27px, env(safe-area-inset-top)); right: max(16px, env(safe-area-inset-right)); z-index: 18; display: grid; width: 48px; height: 48px; place-items: center; padding: 0; border: 1px solid rgba(232,203,145,.76); border-radius: 50%; background: rgba(4,16,31,.94); color: var(--gold-light); box-shadow: 0 6px 22px rgba(4,16,31,.25); cursor: pointer; touch-action: manipulation; }
-.music-control:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 3px; }
-.music-icon { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.6; }
-.music-icon circle { fill: currentColor; }
-.music-muted-mark { display: none; }
-.music-control.is-muted .music-muted-mark { display: block; }
-.music-indicator { position: absolute; right: 3px; bottom: 3px; width: 7px; height: 7px; border: 1px solid var(--navy-deep); border-radius: 50%; background: var(--gold-light); opacity: 0; }
-.music-control.is-playing .music-indicator { opacity: 1; animation: music-pulse 1.5s ease-in-out infinite; }
-@keyframes music-pulse { 50% { box-shadow: 0 0 0 4px rgba(232,203,145,.2); } }
 .language-option { min-width: 88px; min-height: 46px; padding: .5rem .7rem; border: 0; border-radius: 999px; background: transparent; color: var(--ivory); font: 600 .64rem var(--body-font); letter-spacing: .035em; cursor: pointer; transition: background .2s ease, color .2s ease; touch-action: manipulation; }
 .language-option[data-language="gu"] { font-family: "Noto Sans Gujarati", var(--body-font); font-size: .8rem; }
 .language-option.is-active { background: var(--gold-primary); color: var(--navy-deep); }
@@ -435,7 +426,6 @@ html[lang="gu"] .footer-date { font-family: "Noto Sans Gujarati", sans-serif; fo
 @media (max-width: 390px) {
   .language-switcher { min-height: 56px; }
   .language-option { min-width: 78px; min-height: 48px; padding-inline: .55rem; font-size: .62rem; }
-  .music-control { right: 10px; width: 44px; height: 44px; }
   .couple-section { gap: .95rem; }
   html[lang="gu"] .intro-copy h1 { font-size: 1.55rem; }
   html[lang="gu"] .couple-name { font-size: 2.35rem; }
