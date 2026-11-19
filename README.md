@@ -19,4 +19,8 @@ Then open `http://localhost:8000`.
 - Update the IST wedding date, opening interaction, countdown, scratch-to-reveal card, language selection, scroll effects, and petals in `js/main.js`.
 - Add or edit English and Gujarati wording in `js/translations.js`.
 
-The countdown targets midnight at UTC+05:30 on 13 December 2026. The date card can be scratched with pointer input or revealed with its accessible button; its revealed state lasts for the current browser session. The map uses a public Google Maps embed and the supplied directions link. No audio files or third-party music are used; the opening chime is generated only after the visitor taps the invitation button.
+The countdown targets midnight at UTC+05:30 on 13 December 2026 and stays visible below the heart-shaped scratch-to-reveal invitation. The date can be revealed with pointer scratching or the accessible tap button; the revealed state lasts for the current browser session.
+
+No background music file is included. To enable the music control, add a licensed local audio file and set the `data-audio-source` value on `#background-music` in `index.html` (for example, `assets/wedding-instrumental.mp3`). Playback starts only after a visitor interaction, and the mute preference lasts for the current browser tab. The opening chime is generated only after the visitor taps the invitation button.
+
+The map uses a public Google Maps embed and the supplied directions link.

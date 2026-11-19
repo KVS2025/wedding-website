@@ -26,6 +26,17 @@
       <span class="language-divider" aria-hidden="true">|</span>
       <button class="language-option" type="button" data-language="gu" aria-pressed="false">ગુજરાતી</button>
     </nav>
+    <button class="music-control is-muted" id="music-control" type="button" aria-label="Unmute background music" data-i18n-aria-label="music.unmute" aria-pressed="false">
+      <svg class="music-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M9 18V5l12-2v13"></path>
+        <circle cx="6" cy="18" r="3"></circle>
+        <circle cx="18" cy="16" r="3"></circle>
+        <path class="music-muted-mark" d="m3 3 18 18"></path>
+      </svg>
+      <span class="music-indicator" aria-hidden="true"></span>
+    </button>
+    <audio id="background-music" data-audio-source="" preload="none" loop></audio>
+    <span class="sr-only" id="music-status" role="status" aria-live="polite"></span>
 
     <div class="curtain-intro" id="curtain-intro" role="dialog" aria-modal="true" aria-labelledby="intro-title" tabindex="-1">
       <div class="intro-glow" aria-hidden="true"></div>
@@ -97,15 +108,57 @@
               <span class="scratch-message" data-i18n="scratch.message">The day two hearts become one.</span>
             </div>
             <canvas class="scratch-canvas" id="scratch-canvas" aria-hidden="true"></canvas>
+            <svg class="heart-ornament" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false">
+              <defs>
+                <clipPath id="heart-clip" clipPathUnits="objectBoundingBox">
+                  <path d="M.5 .94C.43 .87 .09 .62 .045 .41 0 .2 .12 .07 .29 .07.39 .07.47 .13.5 .24.53 .13.61 .07.71 .07.88 .07 1 .2.955 .41.91 .62.57 .87.5 .94Z"></path>
+                </clipPath>
+              </defs>
+              <path class="heart-outline" d="M500 940C430 870 90 620 45 410 0 200 120 70 290 70 390 70 470 130 500 240 530 130 610 70 710 70 880 70 1000 200 955 410 910 620 570 870 500 940Z"></path>
+              <path class="heart-inner-outline" d="M500 900C430 833 125 600 83 405 44 222 148 111 291 111 380 111 452 163 500 270 548 163 620 111 709 111 852 111 956 222 917 405 875 600 570 833 500 900Z"></path>
+              <path class="heart-filigree" d="M467 173c12-12 21-12 33 0 12-12 21-12 33 0M477 190c9 8 15 8 23 0 8 8 14 8 23 0M477 815c8-8 15-8 23 0 8-8 15-8 23 0M489 827l11 12 11-12"></path>
+              <circle class="heart-detail" cx="500" cy="205" r="4"></circle>
+              <circle class="heart-detail" cx="500" cy="846" r="4"></circle>
+            </svg>
             <div class="scratch-prompt" aria-hidden="true">
-              <span class="scratch-prompt-title" data-i18n="scratch.prompt">Something Beautiful Awaits...</span>
-              <span class="scratch-prompt-copy" data-i18n="scratch.instruction">Scratch or Tap to Reveal</span>
-              <span class="scratch-mark">✧</span>
+              <span class="scratch-prompt-title" data-i18n="scratch.prompt">You're Invited!</span>
+              <span class="scratch-prompt-copy" data-i18n="scratch.instruction">Scratch to reveal our special day</span>
             </div>
             <button class="scratch-button" id="scratch-button" type="button" aria-label="Tap to reveal the wedding date" data-i18n="scratch.tap" data-i18n-aria-label="scratch.tapA11y">Tap to reveal</button>
+            <div class="heart-celebration" id="heart-celebration" aria-hidden="true"></div>
             <p class="sr-only" id="scratch-accessible-date" aria-live="polite" data-i18n="scratch.accessible">The wedding date is Sunday, 13 December 2026. Scratch the card or activate the reveal button to display it.</p>
           </div>
-          <div class="countdown-reveal">
+          <div class="memory-gallery" role="region" aria-labelledby="memory-heading" aria-roledescription="carousel">
+            <h2 class="memory-heading" id="memory-heading" data-i18n="gallery.heading">Our Beautiful Memories</h2>
+            <div class="gallery-stage" id="gallery-stage" tabindex="0" aria-label="Swipe or use arrow keys to browse" data-i18n-aria-label="gallery.controls">
+              <div class="gallery-frame">
+                <img
+                  class="gallery-image"
+                  id="gallery-image"
+                  src="assets/images/DSC02064.jpg"
+                  width="1152"
+                  height="768"
+                  alt="A tender close-up of the couple holding hands"
+                  loading="lazy"
+                  decoding="async"
+                  fetchpriority="low"
+                >
+              </div>
+              <button class="gallery-arrow gallery-arrow--previous" id="gallery-previous" type="button" aria-label="Previous photograph" data-i18n-aria-label="gallery.previous">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+              </button>
+              <button class="gallery-arrow gallery-arrow--next" id="gallery-next" type="button" aria-label="Next photograph" data-i18n-aria-label="gallery.next">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+              </button>
+            </div>
+            <div class="gallery-dots" id="gallery-dots" role="group" aria-label="Choose a photograph" data-i18n-aria-label="gallery.choose">
+              <button class="gallery-dot is-active" type="button" data-gallery-index="0" aria-label="Show memory 1" aria-current="true"></button>
+              <button class="gallery-dot" type="button" data-gallery-index="1" aria-label="Show memory 2" aria-current="false"></button>
+              <button class="gallery-dot" type="button" data-gallery-index="2" aria-label="Show memory 3" aria-current="false"></button>
+              <button class="gallery-dot" type="button" data-gallery-index="3" aria-label="Show memory 4" aria-current="false"></button>
+            </div>
+          </div>
+          <div class="countdown-content">
             <p class="eyebrow" data-i18n="countdown.eyebrow">A day to remember</p>
             <h2 class="section-title" id="countdown-heading" data-i18n="countdown.heading">Counting Down to Forever</h2>
             <div class="countdown" id="countdown" role="timer" aria-label="Time remaining until the wedding" data-i18n-aria-label="countdown.timer">
